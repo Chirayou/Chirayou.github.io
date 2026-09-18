@@ -85,6 +85,17 @@ export default function App() {
 
   const projectList = [
     {
+      title: 'MarkPulse Studio — Interactive Markdown Editor & Document Workbench',
+      role: 'Developer Project',
+      period: '2026',
+      github: 'https://github.com/Chirayou/Assignment1_project',
+      bullets: [
+        'Built a modern, high-performance Markdown Editor and Document Studio from scratch using modern web standards (Vite, HTML5, Vanilla CSS, and JavaScript).',
+        'Empowers technical writers, developers, and content creators with real-time synchronized rendering, rich document analytics, template libraries, and multi-format export capabilities.'
+      ],
+      techStack: ['Vite', 'HTML5', 'Vanilla CSS', 'JavaScript']
+    },
+    {
       title: 'Parkinson Detection System Using Deep Learning',
       role: 'Developer – Pet Project',
       period: 'May 2025 – July 2025',
@@ -305,7 +316,20 @@ export default function App() {
                       <h3 style={{ fontSize: '1.25rem', color: 'var(--text-primary)' }}>{proj.title}</h3>
                       <p className="info-sub" style={{ fontSize: '0.925rem', marginTop: '0.2rem' }}>{proj.role}</p>
                     </div>
-                    <span style={{ fontSize: '0.875rem', color: 'var(--accent-cyan)', fontWeight: 600 }}>{proj.period}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                      {proj.github && (
+                        <a 
+                          href={proj.github} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="btn-secondary" 
+                          style={{ padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}
+                        >
+                          <GithubIcon style={{ width: 14, height: 14 }} /> GitHub
+                        </a>
+                      )}
+                      <span style={{ fontSize: '0.875rem', color: 'var(--accent-cyan)', fontWeight: 600 }}>{proj.period}</span>
+                    </div>
                   </div>
 
                   <ul style={{ paddingLeft: '1.2rem', margin: '0.25rem 0', color: 'var(--text-secondary)', fontSize: '0.925rem', lineHeight: '1.6' }}>
