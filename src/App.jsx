@@ -191,6 +191,61 @@ export default function App() {
     </section>
   );
 
+  const renderProjectsSection = () => (
+    <section id="projects" className="section">
+      <div className="section-header">
+        <h2 className="section-title" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+          <FolderGit2 style={{ width: 24, height: 24, color: 'var(--accent-cyan)' }} />
+          Projects
+        </h2>
+        <p className="section-subtitle">Featured software development and machine learning projects.</p>
+      </div>
+
+      <div className="projects-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+        {projectList.map((proj, idx) => (
+          <div key={idx} className="info-card" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <div>
+                <h3 style={{ fontSize: '1.25rem', color: 'var(--text-primary)' }}>{proj.title}</h3>
+                <p className="info-sub" style={{ fontSize: '0.925rem', marginTop: '0.2rem' }}>{proj.role}</p>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                {proj.github && (
+                  <a 
+                    href={proj.github} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="btn-secondary" 
+                    style={{ padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}
+                  >
+                    <GithubIcon style={{ width: 14, height: 14 }} /> GitHub
+                  </a>
+                )}
+                <span style={{ fontSize: '0.875rem', color: 'var(--accent-cyan)', fontWeight: 600 }}>{proj.period}</span>
+              </div>
+            </div>
+
+            <ul style={{ paddingLeft: '1.2rem', margin: '0.25rem 0', color: 'var(--text-secondary)', fontSize: '0.925rem', lineHeight: '1.6' }}>
+              {proj.bullets.map((bullet, bIdx) => (
+                <li key={bIdx} style={{ marginBottom: '0.35rem' }}>{bullet}</li>
+              ))}
+            </ul>
+
+            {proj.techStack && (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.25rem' }}>
+                {proj.techStack.map((tech, tIdx) => (
+                  <span key={tIdx} className="tag-badge" style={{ fontSize: '0.775rem', padding: '0.2rem 0.6rem' }}>
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+
   return (
     <div className="app-container">
       {/* Navigation Bar */}
@@ -283,6 +338,9 @@ export default function App() {
               </div>
             </section>
 
+            {/* Projects Section */}
+            {renderProjectsSection()}
+
             {/* Education Section */}
             {renderEducationSection(true)}
 
@@ -299,62 +357,13 @@ export default function App() {
         )}
 
         {activePage === 'projects' && (
-          <section className="section" style={{ paddingTop: '3.5rem', borderTop: 'none' }}>
-            <div className="section-header">
-              <h2 className="section-title" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '2.25rem' }}>
-                <FolderGit2 style={{ width: 28, height: 28, color: 'var(--accent-cyan)' }} />
-                Projects
-              </h2>
-              <p className="section-subtitle">Software development and machine learning projects.</p>
-            </div>
-
-            <div className="projects-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              {projectList.map((proj, idx) => (
-                <div key={idx} className="info-card" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem' }}>
-                    <div>
-                      <h3 style={{ fontSize: '1.25rem', color: 'var(--text-primary)' }}>{proj.title}</h3>
-                      <p className="info-sub" style={{ fontSize: '0.925rem', marginTop: '0.2rem' }}>{proj.role}</p>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                      {proj.github && (
-                        <a 
-                          href={proj.github} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="btn-secondary" 
-                          style={{ padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}
-                        >
-                          <GithubIcon style={{ width: 14, height: 14 }} /> GitHub
-                        </a>
-                      )}
-                      <span style={{ fontSize: '0.875rem', color: 'var(--accent-cyan)', fontWeight: 600 }}>{proj.period}</span>
-                    </div>
-                  </div>
-
-                  <ul style={{ paddingLeft: '1.2rem', margin: '0.25rem 0', color: 'var(--text-secondary)', fontSize: '0.925rem', lineHeight: '1.6' }}>
-                    {proj.bullets.map((bullet, bIdx) => (
-                      <li key={bIdx} style={{ marginBottom: '0.35rem' }}>{bullet}</li>
-                    ))}
-                  </ul>
-
-                  {proj.techStack && (
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.25rem' }}>
-                      {proj.techStack.map((tech, tIdx) => (
-                        <span key={tIdx} className="tag-badge" style={{ fontSize: '0.775rem', padding: '0.2rem 0.6rem' }}>
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </section>
+          <div style={{ paddingTop: '1.5rem' }}>
+            {renderProjectsSection()}
+          </div>
         )}
 
         {activePage === 'education' && (
-          <div style={{ paddingTop: '2rem' }}>
+          <div style={{ paddingTop: '1.5rem' }}>
             {renderEducationSection(true)}
           </div>
         )}
