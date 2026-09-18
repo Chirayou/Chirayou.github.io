@@ -9,7 +9,8 @@ import {
   Check,
   Sparkles,
   Database,
-  GraduationCap
+  GraduationCap,
+  FolderGit2
 } from 'lucide-react';
 
 const GithubIcon = ({ className = "w-4 h-4", style = {} }) => (
@@ -82,6 +83,65 @@ export default function App() {
     }
   ];
 
+  const projectList = [
+    {
+      title: 'Parkinson Detection System Using Deep Learning',
+      role: 'Developer – Pet Project',
+      period: 'May 2025 – July 2025',
+      bullets: [
+        'Developed a robust classification system to detect Parkinson’s Disease using biomedical voice features from the UCI dataset.',
+        'Implemented and evaluated three deep learning models—Denoising Diffusion Probabilistic Model (DDPM), Graph Neural Network (GNN), and Mixture of Experts (MoE) to compare diagnostic performance.',
+        'Achieved highest accuracy (94.87%) and F1-score (96.55%) using the DDPM model, demonstrating the effectiveness of denoising and classification synergy.'
+      ],
+      techStack: ['Python', 'Deep Learning (DDPM, GNN, MoE)', 'UCI Dataset']
+    },
+    {
+      title: 'Saloon Booking App',
+      role: 'Developer – Pet Project',
+      period: 'Jun 2025 – Present',
+      bullets: [
+        'Built a cross-platform Salon Booking App with Flutter (frontend) and Django (backend).',
+        'Designed and integrated RESTful APIs for booking, scheduling, and user management.',
+        'Implemented secure authentication and real-time booking updates.',
+        'Developed a responsive UI for seamless user experience across devices.'
+      ],
+      techStack: ['Flutter', 'Django', 'REST APIs', 'Python']
+    },
+    {
+      title: 'Ecommerce Website',
+      role: 'Developer – Pet Project',
+      period: 'July 2023 – Oct 2023',
+      bullets: [
+        'Developed a visually appealing ecommerce website using HTML and CSS.',
+        'Enhanced customer interactions with dynamic features implemented in JavaScript.',
+        'Optimized checkout process for smooth transactions and reduced cart abandonment.'
+      ],
+      techStack: ['HTML', 'CSS', 'JavaScript']
+    },
+    {
+      title: 'Tourist and Travelling Management System',
+      role: 'Developer – Pet Project',
+      period: 'Jan 2023 – May 2023',
+      bullets: [
+        'Created a user-friendly interface for the tourist and travel management system using Java Swing and AWT, ensuring ease of navigation and accessibility for users.',
+        'Implemented Java Swing components for interactive functionalities such as booking flights, hotels, and tour packages, enhancing the overall user experience.',
+        'Integrated MySQL database for efficient data storage and retrieval, enabling seamless management of tourist information, bookings, and travel itineraries within the system.'
+      ],
+      techStack: ['Java Swing', 'AWT', 'MySQL']
+    },
+    {
+      title: 'Book Recommendation System using Machine Learning',
+      role: 'Developer – Pet Project',
+      period: 'July 2023 – Oct 2023',
+      bullets: [
+        'Developed a recommendation model using machine learning algorithms to suggest books based on user preferences and reading history.',
+        'Implemented collaborative filtering and content-based filtering techniques to improve the accuracy of book recommendations.',
+        'Integrated the system with a user-friendly interface, allowing personalized book suggestions for enhanced user experience.'
+      ],
+      techStack: ['Python', 'Pandas', 'NumPy', 'MySQL']
+    }
+  ];
+
   const renderEducationSection = (showHeaderIcon = true) => (
     <section id="education" className="section">
       <div className="section-header">
@@ -144,6 +204,13 @@ export default function App() {
             >
               Education
             </button>
+            <button 
+              onClick={() => setActivePage('projects')} 
+              className={`nav-link ${activePage === 'projects' ? 'active' : ''}`}
+              style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+            >
+              Projects
+            </button>
             <button className="icon-btn" onClick={toggleTheme} title="Toggle Dark/Light Mode">
               {theme === 'dark' ? <Sun style={{ width: 16, height: 16 }} /> : <Moon style={{ width: 16, height: 16 }} />}
             </button>
@@ -205,7 +272,7 @@ export default function App() {
               </div>
             </section>
 
-            {/* Education Section (Also visible on Home) */}
+            {/* Education Section */}
             {renderEducationSection(true)}
 
             {/* Contact Footer Banner */}
@@ -218,6 +285,48 @@ export default function App() {
               </button>
             </section>
           </>
+        )}
+
+        {activePage === 'projects' && (
+          <section className="section" style={{ paddingTop: '3.5rem', borderTop: 'none' }}>
+            <div className="section-header">
+              <h2 className="section-title" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '2.25rem' }}>
+                <FolderGit2 style={{ width: 28, height: 28, color: 'var(--accent-cyan)' }} />
+                Projects
+              </h2>
+              <p className="section-subtitle">Software development and machine learning projects.</p>
+            </div>
+
+            <div className="projects-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              {projectList.map((proj, idx) => (
+                <div key={idx} className="info-card" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem' }}>
+                    <div>
+                      <h3 style={{ fontSize: '1.25rem', color: 'var(--text-primary)' }}>{proj.title}</h3>
+                      <p className="info-sub" style={{ fontSize: '0.925rem', marginTop: '0.2rem' }}>{proj.role}</p>
+                    </div>
+                    <span style={{ fontSize: '0.875rem', color: 'var(--accent-cyan)', fontWeight: 600 }}>{proj.period}</span>
+                  </div>
+
+                  <ul style={{ paddingLeft: '1.2rem', margin: '0.25rem 0', color: 'var(--text-secondary)', fontSize: '0.925rem', lineHeight: '1.6' }}>
+                    {proj.bullets.map((bullet, bIdx) => (
+                      <li key={bIdx} style={{ marginBottom: '0.35rem' }}>{bullet}</li>
+                    ))}
+                  </ul>
+
+                  {proj.techStack && (
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.25rem' }}>
+                      {proj.techStack.map((tech, tIdx) => (
+                        <span key={tIdx} className="tag-badge" style={{ fontSize: '0.775rem', padding: '0.2rem 0.6rem' }}>
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
         )}
 
         {activePage === 'education' && (
