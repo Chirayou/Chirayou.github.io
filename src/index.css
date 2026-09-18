@@ -130,11 +130,11 @@ button {
 .nav-link {
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   transition: color var(--transition-fast);
 }
 
-.nav-link:hover {
+.nav-link:hover, .nav-link.active {
   color: var(--accent-cyan);
 }
 

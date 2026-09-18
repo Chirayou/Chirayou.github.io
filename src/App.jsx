@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import {
   Brain,
   Activity,
-  Stethoscope,
   Mail,
   Sun,
   Moon,
   Copy,
   Check,
   Sparkles,
-  Database
+  Database,
+  GraduationCap
 } from 'lucide-react';
 
 const GithubIcon = ({ className = "w-4 h-4", style = {} }) => (
@@ -26,6 +26,7 @@ const LinkedinIcon = ({ className = "w-4 h-4", style = {} }) => (
 
 export default function App() {
   const [theme, setTheme] = useState('dark');
+  const [activePage, setActivePage] = useState('home');
   const [copiedEmail, setCopiedEmail] = useState(false);
 
   useEffect(() => {
@@ -60,17 +61,89 @@ export default function App() {
     }
   ];
 
+  const educationList = [
+    {
+      institution: 'North Dakota State University',
+      degree: 'M.S. in Computer Science',
+      period: '2026 – Present',
+      details: 'Specialization in Machine Learning for Digital Healthcare'
+    },
+    {
+      institution: 'Jain University, Bangalore, India',
+      degree: 'B.Tech. in Information Science and Engineering',
+      period: 'Grad. June 2024',
+      grade: 'CGPA: 8.5 / 10'
+    },
+    {
+      institution: 'St. Thomas Secondary School, Nepal',
+      degree: '12th Grade – NEB Plus Two',
+      period: 'Grad. July 2020',
+      grade: 'CGPA: 3.45 / 4'
+    }
+  ];
+
+  const renderEducationSection = (showHeaderIcon = true) => (
+    <section id="education" className="section">
+      <div className="section-header">
+        <h2 className="section-title" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+          {showHeaderIcon && <GraduationCap style={{ width: 24, height: 24, color: 'var(--accent-cyan)' }} />}
+          Education
+        </h2>
+        {activePage === 'education' && (
+          <p className="section-subtitle">Academic degrees and educational qualifications.</p>
+        )}
+      </div>
+
+      <div className="education-list" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        {educationList.map((edu, idx) => (
+          <div key={idx} className="info-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <div>
+                <h3 style={{ fontSize: '1.2rem', color: 'var(--text-primary)' }}>{edu.institution}</h3>
+                <p className="info-sub" style={{ fontSize: '0.95rem', marginTop: '0.2rem' }}>{edu.degree}</p>
+              </div>
+              <span style={{ fontSize: '0.875rem', color: 'var(--accent-cyan)', fontWeight: 600 }}>{edu.period}</span>
+            </div>
+            {edu.grade && (
+              <p className="info-text" style={{ fontWeight: 500, color: 'var(--text-secondary)', marginTop: '0.4rem' }}>
+                {edu.grade}
+              </p>
+            )}
+            {edu.details && (
+              <p className="info-text" style={{ marginTop: '0.4rem' }}>
+                {edu.details}
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+
   return (
     <div className="app-container">
-      {/* Clean Navigation Bar - Name only, no icon */}
+      {/* Navigation Bar */}
       <header className="navbar">
         <div className="content-wrapper nav-content">
-          <div className="brand-logo-text">
+          <div className="brand-logo-text" onClick={() => setActivePage('home')} style={{ cursor: 'pointer' }}>
             Chirayou Bista
           </div>
 
           <div className="nav-actions">
-            <a href="#" className="nav-link">Home</a>
+            <button 
+              onClick={() => setActivePage('home')} 
+              className={`nav-link ${activePage === 'home' ? 'active' : ''}`}
+              style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+            >
+              Home
+            </button>
+            <button 
+              onClick={() => setActivePage('education')} 
+              className={`nav-link ${activePage === 'education' ? 'active' : ''}`}
+              style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+            >
+              Education
+            </button>
             <button className="icon-btn" onClick={toggleTheme} title="Toggle Dark/Light Mode">
               {theme === 'dark' ? <Sun style={{ width: 16, height: 16 }} /> : <Moon style={{ width: 16, height: 16 }} />}
             </button>
@@ -78,67 +151,80 @@ export default function App() {
         </div>
       </header>
 
-      {/* Main Home Page */}
-      <main className="content-wrapper">
-        {/* Hero Section */}
-        <section className="hero-simple">
-          <div className="hero-text">
-            <h1 className="hero-title">Chirayou Bista</h1>
-            <p className="hero-lead">
-              Master’s Student in Computer Science specializing in <strong>Machine Learning</strong> with a focus on <strong>Digital Healthcare</strong> applications.
-            </p>
+      {/* Main View Container */}
+      <main className="content-wrapper" style={{ flex: 1 }}>
+        {activePage === 'home' && (
+          <>
+            {/* Hero Section */}
+            <section className="hero-simple">
+              <div className="hero-text">
+                <h1 className="hero-title">Chirayou Bista</h1>
+                <p className="hero-lead">
+                  Master’s Student in Computer Science specializing in <strong>Machine Learning</strong> with a focus on <strong>Digital Healthcare</strong> applications.
+                </p>
 
-            <div className="tags-row">
-              <span className="tag-badge"><Brain style={{ width: 13, height: 13 }} /> Machine Learning</span>
-              <span className="tag-badge"><Activity style={{ width: 13, height: 13 }} /> Digital Healthcare</span>
-              <span className="tag-badge"><Sparkles style={{ width: 13, height: 13 }} /> Biosignal AI</span>
-              <span className="tag-badge"><Database style={{ width: 13, height: 13 }} /> EHR Analytics</span>
-            </div>
+                <div className="tags-row">
+                  <span className="tag-badge"><Brain style={{ width: 13, height: 13 }} /> Machine Learning</span>
+                  <span className="tag-badge"><Activity style={{ width: 13, height: 13 }} /> Digital Healthcare</span>
+                  <span className="tag-badge"><Sparkles style={{ width: 13, height: 13 }} /> Biosignal AI</span>
+                  <span className="tag-badge"><Database style={{ width: 13, height: 13 }} /> EHR Analytics</span>
+                </div>
 
-            <div className="cta-row">
-              <button onClick={copyEmail} className="btn-primary">
-                {copiedEmail ? <Check style={{ width: 16, height: 16 }} /> : <Mail style={{ width: 16, height: 16 }} />}
-                {copiedEmail ? 'Email Copied!' : 'Contact via Email'}
-              </button>
-              <a href="https://github.com/Chirayou" target="_blank" rel="noopener noreferrer" className="btn-secondary">
-                <GithubIcon style={{ width: 16, height: 16 }} /> GitHub Profile
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="btn-secondary">
-                <LinkedinIcon style={{ width: 16, height: 16 }} /> LinkedIn
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* Research Focus Overview */}
-        <section className="section">
-          <div className="section-header">
-            <h2 className="section-title">Research Focus</h2>
-            <p className="section-subtitle">
-              Leveraging machine learning algorithms to solve core challenges in biomedical computing and healthcare systems.
-            </p>
-          </div>
-
-          <div className="grid-3">
-            {researchAreas.map((area, idx) => (
-              <div key={idx} className="card-simple">
-                <div className="card-icon">{area.icon}</div>
-                <h3 className="card-title">{area.title}</h3>
-                <p className="card-desc">{area.description}</p>
+                <div className="cta-row">
+                  <button onClick={copyEmail} className="btn-primary">
+                    {copiedEmail ? <Check style={{ width: 16, height: 16 }} /> : <Mail style={{ width: 16, height: 16 }} />}
+                    {copiedEmail ? 'Email Copied!' : 'Contact via Email'}
+                  </button>
+                  <a href="https://github.com/Chirayou" target="_blank" rel="noopener noreferrer" className="btn-secondary">
+                    <GithubIcon style={{ width: 16, height: 16 }} /> GitHub Profile
+                  </a>
+                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="btn-secondary">
+                    <LinkedinIcon style={{ width: 16, height: 16 }} /> LinkedIn
+                  </a>
+                </div>
               </div>
-            ))}
-          </div>
-        </section>
+            </section>
 
-        {/* Contact Footer Banner */}
-        <section className="contact-banner">
-          <h2>Connect & Collaborate</h2>
-          <p>Interested in machine learning research or healthcare AI projects? Feel free to reach out.</p>
-          <button onClick={copyEmail} className="btn-primary" style={{ marginTop: '0.5rem' }}>
-            {copiedEmail ? <Check style={{ width: 16, height: 16 }} /> : <Copy style={{ width: 16, height: 16 }} />}
-            {copiedEmail ? 'Email Copied!' : 'chirayoubista@gmail.com'}
-          </button>
-        </section>
+            {/* Research Focus Overview */}
+            <section className="section">
+              <div className="section-header">
+                <h2 className="section-title">Research Focus</h2>
+                <p className="section-subtitle">
+                  Leveraging machine learning algorithms to solve core challenges in biomedical computing and healthcare systems.
+                </p>
+              </div>
+
+              <div className="grid-3">
+                {researchAreas.map((area, idx) => (
+                  <div key={idx} className="card-simple">
+                    <div className="card-icon">{area.icon}</div>
+                    <h3 className="card-title">{area.title}</h3>
+                    <p className="card-desc">{area.description}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Education Section (Also visible on Home) */}
+            {renderEducationSection(true)}
+
+            {/* Contact Footer Banner */}
+            <section className="contact-banner">
+              <h2>Connect & Collaborate</h2>
+              <p>Interested in machine learning research or healthcare AI projects? Feel free to reach out.</p>
+              <button onClick={copyEmail} className="btn-primary" style={{ marginTop: '0.5rem' }}>
+                {copiedEmail ? <Check style={{ width: 16, height: 16 }} /> : <Copy style={{ width: 16, height: 16 }} />}
+                {copiedEmail ? 'Email Copied!' : 'chirayoubista@gmail.com'}
+              </button>
+            </section>
+          </>
+        )}
+
+        {activePage === 'education' && (
+          <div style={{ paddingTop: '2rem' }}>
+            {renderEducationSection(true)}
+          </div>
+        )}
       </main>
 
       {/* Footer */}
